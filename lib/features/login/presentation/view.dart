@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_scanner/core/common/functions/validator.dart';
 import 'package:qr_scanner/core/common/widgets/custom_btn.dart';
 import 'package:qr_scanner/core/common/widgets/custom_text_field.dart';
+import 'package:qr_scanner/features/home/presentation/views/scan.dart';
 import 'package:qr_scanner/features/login/presentation/bloc/login_bloc.dart';
 import 'package:qr_scanner/features/login/presentation/widgets/login_header.dart';
 
@@ -61,21 +62,25 @@ class LoginScreen extends StatelessWidget {
                           });
                 },
                 listener: (BuildContext context, LoginState state) {
-                  state is LoginSuccessState
-                      ? ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Login successful'),
-                            backgroundColor: Colors.green,
-                          ),
-                        )
-                      : state is LoginFailureState
-                          ? ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(state.error),
-                                backgroundColor: Colors.red,
-                              ),
-                            )
-                          : null;
+                  if (state is LoginSuccessState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Login successful'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (c) {
+                      return QRCodeScannerScreen();
+                    }));
+                  } else if (state is LoginFailureState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.error),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else
+                    null;
                 },
               ),
             ],
