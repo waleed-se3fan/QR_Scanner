@@ -1,5 +1,3 @@
-import 'package:dartz/dartz.dart';
-import 'package:qr_scanner/core/error/failure.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class LoginRemoteDataSource {

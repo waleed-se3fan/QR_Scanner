@@ -14,3 +14,5 @@ class QRViewCreatedEvent extends QrcodeEvent {
 class ToggleFlashEvent extends QrcodeEvent {}
 
 class GetQRFromGalleryEvent extends QrcodeEvent {}
+
+class GetScanResultEvent extends QrcodeEvent {}

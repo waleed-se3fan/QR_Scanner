@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_scanner/core/common/widgets/custom_btn.dart';
 import 'package:qr_scanner/features/home/presentation/bloc/qrcode_bloc.dart';
 import 'package:qr_scanner/features/home/presentation/widgets/custom_header.dart';
@@ -22,7 +20,9 @@ class QRCodeScannerScreen extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    const CustomHeader(),
+                    const CustomHeader(
+                      isResult: false,
+                    ),
                     const SizedBox(height: 10),
                     const Text(
                       'Scan OR code',

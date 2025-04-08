@@ -3,7 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:qr_scanner/features/home/presentation/views/result.dart';
 
 class CustomHeader extends StatelessWidget {
-  const CustomHeader({super.key});
+  final bool isResult;
+
+  const CustomHeader({super.key, required this.isResult});
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +22,36 @@ class CustomHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        InkWell(
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (c) {
-            return const ResultScreen();
-          })),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Align(
-                alignment: Alignment.topRight,
-                child: SvgPicture.asset(
-                  'images/menu.svg',
-                  height: 43,
-                  width: 41,
-                )),
-          ),
-        ),
+        isResult
+            ? InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: SvgPicture.asset(
+                        'images/arrow.svg',
+                        height: 43,
+                        width: 41,
+                      )),
+                ),
+              )
+            : InkWell(
+                onTap: () =>
+                    Navigator.push(context, MaterialPageRoute(builder: (c) {
+                  return const ResultScreen();
+                })),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: SvgPicture.asset(
+                        'images/menu.svg',
+                        height: 43,
+                        width: 41,
+                      )),
+                ),
+              ),
       ],
     );
   }
