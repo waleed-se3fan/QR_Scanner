@@ -27,6 +27,7 @@ class ScanDataSourceImpl extends ScanDataSource {
 
     if (pickedImage != null) {
       File imageFile = File(pickedImage.path);
+      addDataToHive('http://example.com/qr_code.png');
       insertToSubase('http://example.com/qr_code.png');
       print(imageFile.path);
     }
@@ -69,7 +70,6 @@ class ScanDataSourceImpl extends ScanDataSource {
       var box = await Hive.openBox('qrResults');
 
       List<String> allValues = box.values.cast<String>().toList();
-      // print('Stored List: $allValues');
       return allValues;
     } catch (e) {
       print('Error: ${e.toString()}');
