@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qr_scanner/core/common/functions/navigatiom.dart';
 import 'package:qr_scanner/core/utils/app_assets.dart';
 import 'package:qr_scanner/features/home/presentation/views/result.dart';
 
@@ -39,9 +40,7 @@ class CustomHeader extends StatelessWidget {
               )
             : InkWell(
                 onTap: () =>
-                    Navigator.push(context, MaterialPageRoute(builder: (c) {
-                  return const ResultScreen();
-                })),
+                    Navigations.navigateTo(context, const ResultScreen()),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Align(

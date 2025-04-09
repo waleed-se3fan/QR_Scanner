@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_scanner/core/common/functions/navigatiom.dart';
 import 'package:qr_scanner/core/common/widgets/custom_btn.dart';
 import 'package:qr_scanner/core/utils/app_colors.dart';
 import 'package:qr_scanner/core/utils/app_strings.dart';
@@ -36,9 +37,10 @@ class LoginBuutton extends StatelessWidget {
               backgroundColor: AppColors.successColor,
             ),
           );
-          Navigator.push(context, MaterialPageRoute(builder: (c) {
-            return const QRCodeScannerScreen();
-          }));
+          Navigations.navigateAndFinish(
+            context,
+            const QRCodeScannerScreen(),
+          );
         } else if (state is LoginFailureState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

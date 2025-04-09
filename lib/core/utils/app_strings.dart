@@ -11,4 +11,13 @@ class AppStrings {
   static const loginError = 'Login Error';
   static const fillFields = 'Please fill all fields';
   static const codeScanning = 'Scanning Code...';
+  static const scanResult = 'Scanning Result';
+  static const emptyList = 'Empty List';
+  static const scanDescription =
+      'Proreader will Keep your last 10 days history to keep your all scared history please purched our pro package.';
+  static const send = 'Send';
+  static const scan = 'Scan';
+  static const scanDescription2 =
+      'Place qr code inside the frame to scan please avoid shake to get results quickly';
+  static const placeCamera = 'Place Camera Code';
 }

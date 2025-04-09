@@ -40,12 +40,11 @@ dependencies:
   dartz:
   qr_code_scanner: 
   flutter_screenutil: 
-
-
   flutter_svg:
   image_picker: 
   hive: 
   permission_handler: 
+  path_provider:
 
  
 

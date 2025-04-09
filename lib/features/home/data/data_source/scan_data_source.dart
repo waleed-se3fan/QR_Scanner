@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -51,6 +52,31 @@ class ScanDataSourceImpl extends ScanDataSource {
     }
   }
 
+  static List qrdata = [];
+
+  void addDataToHive(String value) async {
+    try {
+      var box = await Hive.openBox('qrResults');
+      box.add(value);
+      print('Data added: $value');
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<List<String>> getDataFromHive() async {
+    try {
+      var box = await Hive.openBox('qrResults');
+
+      List<String> allValues = box.values.cast<String>().toList();
+      // print('Stored List: $allValues');
+      return allValues;
+    } catch (e) {
+      print('Error: ${e.toString()}');
+      return [];
+    }
+  }
+
   @override
   Future<void> onQRViewCreated(controller) async {
     this.controller = controller;
@@ -61,6 +87,7 @@ class ScanDataSourceImpl extends ScanDataSource {
 
       print("QR : ${scanData.code}");
       if (scanData.code != null) {
+        addDataToHive(scanData.code.toString());
         insertToSubase(scanData.code.toString());
 
         controller.pauseCamera();
@@ -91,16 +118,11 @@ class ScanDataSourceImpl extends ScanDataSource {
     }
   }
 
-  static List qrdata = [];
-
   @override
   Future getFromSubBase() async {
-    print('---------------------------------------------------------------');
     try {
       qrdata.clear();
       final supabase = Supabase.instance.client;
-      print(
-          '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
       final fetchResponse = await supabase.from('qr_code').select('qr_co');
       final data = fetchResponse;
       for (final row in data) {
@@ -110,8 +132,9 @@ class ScanDataSourceImpl extends ScanDataSource {
       print(qrdata);
       return qrdata;
     } catch (e) {
-      print('000000000000000000000000000000000000000000000000000000');
-      return e.toString();
+      qrdata = await getDataFromHive();
+
+      return qrdata;
     }
   }
 }

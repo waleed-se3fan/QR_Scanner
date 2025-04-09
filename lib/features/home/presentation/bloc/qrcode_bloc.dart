@@ -1,10 +1,8 @@
-// ignore_for_file: invalid_use_of_visible_for_testing_member
-
-import 'dart:io';
+// ignore_for_file: invalid_use_of_visible_for_testing_member, depend_on_referenced_packages
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+import 'package:hive/hive.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_scanner/features/home/data/data_source/scan_data_source.dart';
 import 'package:qr_scanner/features/home/data/repository/scan_repo_impl.dart';
@@ -32,6 +30,7 @@ class QrcodeBloc extends Bloc<QrcodeEvent, QrcodeState> {
       getScanResult();
     });
   }
+
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   final scanUseCase =

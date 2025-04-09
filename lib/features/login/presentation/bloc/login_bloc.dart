@@ -2,6 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:qr_scanner/core/utils/app_strings.dart';
 import 'package:qr_scanner/features/login/data/datasource/remote_data_source.dart';

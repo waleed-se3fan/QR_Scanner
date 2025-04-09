@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_scanner/core/common/widgets/custom_btn.dart';
+import 'package:qr_scanner/core/utils/app_strings.dart';
 import 'package:qr_scanner/features/home/presentation/bloc/qrcode_bloc.dart';
 import 'package:qr_scanner/features/home/presentation/widgets/customItemcard.dart';
 import 'package:qr_scanner/features/home/presentation/widgets/custom_header.dart';
@@ -33,14 +34,14 @@ class ResultScreen extends StatelessWidget {
                     children: [
                       const CustomHeader(isResult: true),
                       const Text(
-                        'Scanning Result',
+                        AppStrings.scanResult,
                         style: TextStyle(
                             fontWeight: FontWeight.w700, fontSize: 16),
                       ),
                       const Padding(
                         padding: EdgeInsets.all(30.0),
                         child: Text(
-                          'Proreader will Keep your last 10 days history to keep your all scared history please purched our pro package.',
+                          AppStrings.scanDescription,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -56,7 +57,7 @@ class ResultScreen extends StatelessWidget {
                             child: state is SuccesScanResultState
                                 ? state.scanResult.isEmpty
                                     ? const Center(
-                                        child: Text('Empty List'),
+                                        child: Text(AppStrings.emptyList),
                                       )
                                     : ListView.builder(
                                         shrinkWrap: true,
@@ -71,7 +72,7 @@ class ResultScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      CustomButton(text: 'Send', onPressed: () {})
+                      CustomButton(text: AppStrings.send, onPressed: () {})
                     ],
                   ),
                 ),

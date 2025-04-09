@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_scanner/core/common/widgets/custom_btn.dart';
+import 'package:qr_scanner/core/utils/app_strings.dart';
 import 'package:qr_scanner/features/home/presentation/bloc/qrcode_bloc.dart';
 import 'package:qr_scanner/features/home/presentation/widgets/custom_header.dart';
 import 'package:qr_scanner/features/home/presentation/widgets/custom_qr_camera.dart';
@@ -17,8 +19,8 @@ class QRCodeScannerScreen extends StatelessWidget {
         builder: (context, state) {
           return Column(
             children: [
-              const SizedBox(
-                height: 120,
+              SizedBox(
+                height: 120.h,
               ),
               Expanded(
                 child: Container(
@@ -34,16 +36,16 @@ class QRCodeScannerScreen extends StatelessWidget {
                       const CustomHeader(
                         isResult: false,
                       ),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Scan OR code',
+                      SizedBox(height: 10.h),
+                      Text(
+                        AppStrings.scan,
                         style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 16),
+                            fontWeight: FontWeight.w700, fontSize: 16.sp),
                       ),
                       const Padding(
                         padding: EdgeInsets.all(30.0),
                         child: Text(
-                          'Place qr code inside the frame to scan please avoid shake to get results quickly',
+                          AppStrings.scanDescription2,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -55,7 +57,7 @@ class QRCodeScannerScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       const CustomActionsRow(),
                       CustomButton(
-                          text: 'Place Camera Code',
+                          text: AppStrings.placeCamera,
                           onPressed: () {
                             context
                                 .read<QrcodeBloc>()
