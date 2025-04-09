@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qr_scanner/core/utils/app_assets.dart';
 import 'package:qr_scanner/features/home/presentation/views/result.dart';
 
 class CustomHeader extends StatelessWidget {
@@ -30,7 +31,7 @@ class CustomHeader extends StatelessWidget {
                   child: Align(
                       alignment: Alignment.topRight,
                       child: SvgPicture.asset(
-                        'images/arrow.svg',
+                        AppAssets.arrow,
                         height: 43,
                         width: 41,
                       )),
@@ -46,7 +47,7 @@ class CustomHeader extends StatelessWidget {
                   child: Align(
                       alignment: Alignment.topRight,
                       child: SvgPicture.asset(
-                        'images/menu.svg',
+                        AppAssets.menu,
                         height: 43,
                         width: 41,
                       )),

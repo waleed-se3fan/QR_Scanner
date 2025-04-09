@@ -12,50 +12,73 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<QrcodeBloc>().add(GetScanResultEvent());
     return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<QrcodeBloc, QrcodeState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                const CustomHeader(isResult: true),
-                const Text(
-                  'Scanning Result',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(30.0),
-                  child: Text(
-                    'Proreader will Keep your last 10 days history to keep your all scared history please purched our pro package.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
+      backgroundColor: Colors.black,
+      body: BlocBuilder<QrcodeBloc, QrcodeState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              const SizedBox(
+                height: 120,
+              ),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
                   ),
+                  child: Column(
+                    children: [
+                      const CustomHeader(isResult: true),
+                      const Text(
+                        'Scanning Result',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 16),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(30.0),
+                        child: Text(
+                          'Proreader will Keep your last 10 days history to keep your all scared history please purched our pro package.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                      BlocBuilder<QrcodeBloc, QrcodeState>(
+                        builder: (context, state) {
+                          return Container(
+                            height: 350,
+                            padding: const EdgeInsets.all(20),
+                            child: state is SuccesScanResultState
+                                ? state.scanResult.isEmpty
+                                    ? const Center(
+                                        child: Text('Empty List'),
+                                      )
+                                    : ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: state.scanResult.length,
+                                        itemBuilder: (context, index) {
+                                          return CustomItemCard(
+                                              state.scanResult, index);
+                                        })
+                                : const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                          );
+                        },
+                      ),
+                      CustomButton(text: 'Send', onPressed: () {})
+                    ],
+                  ),
                 ),
-                BlocBuilder<QrcodeBloc, QrcodeState>(
-                  builder: (context, state) {
-                    return Container(
-                      height: 400,
-                      padding: const EdgeInsets.all(20),
-                      child: state is SuccesScanResultState
-                          ? ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: state.scanResult.length,
-                              itemBuilder: (context, index) {
-                                return CustomItemCard(state.scanResult, index);
-                              })
-                          : const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                    );
-                  },
-                ),
-                CustomButton(text: 'Send', onPressed: () {})
-              ],
-            );
-          },
-        ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

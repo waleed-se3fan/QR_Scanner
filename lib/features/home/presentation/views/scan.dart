@@ -12,46 +12,61 @@ class QRCodeScannerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: BlocBuilder<QrcodeBloc, QrcodeState>(
         builder: (context, state) {
-          return SafeArea(
-            child: Stack(
-              children: [
-                Column(
-                  children: [
-                    const CustomHeader(
-                      isResult: false,
+          return Column(
+            children: [
+              const SizedBox(
+                height: 120,
+              ),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Scan OR code',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(30.0),
-                      child: Text(
-                        'Place qr code inside the frame to scan please avoid shake to get results quickly',
-                        textAlign: TextAlign.center,
+                  ),
+                  child: Column(
+                    children: [
+                      const CustomHeader(
+                        isResult: false,
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Scan OR code',
                         style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
+                            fontWeight: FontWeight.w700, fontSize: 16),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(30.0),
+                        child: Text(
+                          'Place qr code inside the frame to scan please avoid shake to get results quickly',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
-                    ),
-                    const CustomQrCamera(),
-                    const SizedBox(height: 20),
-                    const CustomActionsRow(),
-                    CustomButton(
-                        text: 'Place Camera Code',
-                        onPressed: () {
-                          context.read<QrcodeBloc>().controller!.resumeCamera();
-                        }),
-                  ],
+                      const CustomQrCamera(),
+                      const SizedBox(height: 20),
+                      const CustomActionsRow(),
+                      CustomButton(
+                          text: 'Place Camera Code',
+                          onPressed: () {
+                            context
+                                .read<QrcodeBloc>()
+                                .controller!
+                                .resumeCamera();
+                          }),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),

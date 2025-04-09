@@ -21,7 +21,11 @@ class ScanUseCases {
     return await scanRepository.getQRFromGallery();
   }
 
-  Future<Either<Failure, List>> insertAndFetch(String scanData) async {
-    return await scanRepository.insertAndFetch(scanData);
+  Future<Either<Failure, List>> insertToSupaBase(String scanData) async {
+    return await scanRepository.insertToSubBase(scanData);
+  }
+
+  Future<Either<Failure, List>> getFromSubBase() async {
+    return await scanRepository.getFromSubBase();
   }
 }

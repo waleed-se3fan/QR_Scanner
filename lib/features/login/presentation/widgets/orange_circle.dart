@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_scanner/core/utils/app_colors.dart';
 
 class OrangeCircle extends StatelessWidget {
   final double size;
@@ -23,9 +24,9 @@ class OrangeCircle extends StatelessWidget {
       child: Container(
         width: size,
         height: size,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.orangeAccent.withOpacity(0.3),
+          color: AppColors.circleColor,
         ),
       ),
     );

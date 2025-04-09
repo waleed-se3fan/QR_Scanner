@@ -12,9 +12,9 @@ class ScanRepoImplementation extends ScanRepository {
   }
 
   @override
-  Future<Either<Failure, List>> insertAndFetch(String scanData) async {
+  Future<Either<Failure, List>> insertToSubBase(String scanData) async {
     try {
-      await scanDataSource.insertAndFetch(scanData);
+      await scanDataSource.insertToSubase(scanData);
       return Right(ScanDataSourceImpl.qrdata);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -34,5 +34,15 @@ class ScanRepoImplementation extends ScanRepository {
   @override
   Future<void> toggleFlash() async {
     await scanDataSource.toggleFlash();
+  }
+
+  @override
+  Future<Either<Failure, List>> getFromSubBase() async {
+    try {
+      await scanDataSource.getFromSubBase();
+      return Right(ScanDataSourceImpl.qrdata);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
   }
 }

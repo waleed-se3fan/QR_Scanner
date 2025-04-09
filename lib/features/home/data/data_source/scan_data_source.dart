@@ -12,7 +12,8 @@ abstract class ScanDataSource {
   Future<void> onQRViewCreated(controller);
   Future<void> toggleFlash();
   Future<void> getQRFromGallery();
-  Future insertAndFetch(String scanData);
+  Future insertToSubase(String scanData);
+  Future getFromSubBase();
 }
 
 class ScanDataSourceImpl extends ScanDataSource {
@@ -25,13 +26,13 @@ class ScanDataSourceImpl extends ScanDataSource {
 
     if (pickedImage != null) {
       File imageFile = File(pickedImage.path);
+      insertToSubase('http://example.com/qr_code.png');
       print(imageFile.path);
     }
   }
 
-  static List qrdata = [];
   @override
-  Future insertAndFetch(String scanData) async {
+  Future insertToSubase(String scanData) async {
     final supabase = Supabase.instance.client;
     print('////////// Start insertAndFetch //////////');
 
@@ -44,15 +45,6 @@ class ScanDataSourceImpl extends ScanDataSource {
       }
 
       print('Inserted data: $insertResponse');
-
-      final fetchResponse = await supabase.from('qr_code').select('qr_co');
-      final data = fetchResponse;
-      for (final row in data) {
-        qrdata.add(row['qr_co']);
-        print(row['qr_co']);
-      }
-      print(qrdata);
-      return qrdata;
     } catch (error) {
       print('Error during insert or fetch: $error');
       return 'Error during insert or fetch: $error';
@@ -69,14 +61,10 @@ class ScanDataSourceImpl extends ScanDataSource {
 
       print("QR : ${scanData.code}");
       if (scanData.code != null) {
-        print(
-            '-----------------------------------------------------------------------');
-        insertAndFetch(scanData.code.toString());
+        insertToSubase(scanData.code.toString());
 
         controller.pauseCamera();
       } else {
-        print(
-            '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
         print(scanData.code!.toString());
       }
     });
@@ -100,6 +88,30 @@ class ScanDataSourceImpl extends ScanDataSource {
   Future<void> toggleFlash() async {
     if (controller != null) {
       await controller!.toggleFlash();
+    }
+  }
+
+  static List qrdata = [];
+
+  @override
+  Future getFromSubBase() async {
+    print('---------------------------------------------------------------');
+    try {
+      qrdata.clear();
+      final supabase = Supabase.instance.client;
+      print(
+          '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+      final fetchResponse = await supabase.from('qr_code').select('qr_co');
+      final data = fetchResponse;
+      for (final row in data) {
+        qrdata.add(row['qr_co']);
+        print(row['qr_co']);
+      }
+      print(qrdata);
+      return qrdata;
+    } catch (e) {
+      print('000000000000000000000000000000000000000000000000000000');
+      return e.toString();
     }
   }
 }

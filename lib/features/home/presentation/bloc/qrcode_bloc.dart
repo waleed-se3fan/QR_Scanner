@@ -1,15 +1,14 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_scanner/features/home/data/data_source/scan_data_source.dart';
 import 'package:qr_scanner/features/home/data/repository/scan_repo_impl.dart';
 import 'package:qr_scanner/features/home/domain/use_cases/scan_usecase.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'qrcode_event.dart';
 part 'qrcode_state.dart';
@@ -60,28 +59,14 @@ class QrcodeBloc extends Bloc<QrcodeEvent, QrcodeState> {
     scanUseCase.getQRFromGallery();
   }
 
-  List qrdata = [];
-  Future<void> insertAndFetch(String code) async {
-    var result = await scanUseCase.insertAndFetch(code);
-    result.fold((l) => print('object'), (r) => print(r));
-  }
-
-  List scan_result = [];
   getScanResult() async {
     emit(LoadingScanResultState());
-    try {
-      final supabase = Supabase.instance.client;
 
-      final fetchResponse = await supabase.from('qr_code').select('qr_co');
-      final data = fetchResponse;
-      for (final row in data) {
-        scan_result.add(row['qr_co']);
-        print(row['qr_co']);
-      }
-      print(scan_result);
-      emit(SuccesScanResultState(scan_result));
-    } catch (e) {
-      emit(ErrorScanResultState(e.toString()));
-    }
+    final result = await scanUseCase.getFromSubBase();
+    result.fold((failure) {
+      emit(ErrorScanResultState(failure.message));
+    }, (data) {
+      emit(SuccesScanResultState(data));
+    });
   }
 }

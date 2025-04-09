@@ -3,7 +3,6 @@ class Failure {
 
   Failure(this.message);
 
-  @override
   String failureMessage() {
     return 'Failure: $message';
   }

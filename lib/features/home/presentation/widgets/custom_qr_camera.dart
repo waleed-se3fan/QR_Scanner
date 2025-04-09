@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_scanner/core/utils/app_colors.dart';
+import 'package:qr_scanner/core/utils/app_strings.dart';
 import 'package:qr_scanner/features/home/presentation/bloc/qrcode_bloc.dart';
 
 class CustomQrCamera extends StatelessWidget {
@@ -17,8 +20,8 @@ class CustomQrCamera extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   SizedBox(
-                      width: 200,
-                      height: 200,
+                      width: 200.w,
+                      height: 200.h,
                       child: QRView(
                         key: context.read<QrcodeBloc>().qrKey,
                         onQRViewCreated: (control) {
@@ -35,19 +38,19 @@ class CustomQrCamera extends StatelessWidget {
                         ),
                       )),
                   Container(
-                    width: 180,
-                    height: 2,
+                    width: 180.w,
+                    height: 2.h,
                     color: Colors.orange,
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             const Text(
-              "Scanning Code...",
+              AppStrings.codeScanning,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.black,
+                color: AppColors.textColor,
               ),
             ),
           ],

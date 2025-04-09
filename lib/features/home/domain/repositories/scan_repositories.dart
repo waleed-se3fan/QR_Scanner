@@ -6,5 +6,6 @@ abstract class ScanRepository {
   Future<void> onQRViewCreated(controller);
   Future<void> toggleFlash();
   Future<void> getQRFromGallery();
-  Future<Either<Failure, List>> insertAndFetch(String scanData);
+  Future<Either<Failure, List>> insertToSubBase(String scanData);
+  Future<Either<Failure, List>> getFromSubBase();
 }

@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc: 
   dartz:
   qr_code_scanner: 
+  flutter_screenutil: 
 
 
   flutter_svg:

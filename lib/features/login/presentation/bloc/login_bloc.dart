@@ -3,6 +3,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:qr_scanner/core/utils/app_strings.dart';
 import 'package:qr_scanner/features/login/data/datasource/remote_data_source.dart';
 import 'package:qr_scanner/features/login/data/repositories/login_impl.dart';
 import 'package:qr_scanner/features/login/domain/usecases/login_usecase.dart';
@@ -35,10 +36,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (formkey.currentState!.validate()) {
       final result = await usecase.call(email, password);
       result.fold((failure) => emit(LoginFailureState(error: failure.message)),
-          (user) => emit(LoginSuccessState(message: 'Login successful')));
+          (user) => emit(LoginSuccessState(message: AppStrings.loginError)));
       print(state);
     } else {
-      emit(LoginFailureState(error: 'Please fill all fields'));
+      emit(LoginFailureState(error: AppStrings.fillFields));
     }
   }
 }
